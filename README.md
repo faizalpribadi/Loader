@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-
 # Mozart - Class Loader
 
 Mozart Class Loader Extending API Core Component Of "ClassLoader" From Symfony2
@@ -60,9 +57,3 @@ AnnotationRegistry::registerLoader(function($class) use($loader) {
     });
 AnnotationRegistry::registerFile(__DIR__ . '/path-to/Vendors/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
 ```
-=======
-Loader
-======
-
-Mozart Class Loader
->>>>>>> ea0c4200552c90faba88670506461811bc3d4f9f

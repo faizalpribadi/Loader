@@ -1,0 +1,30 @@
+{
+    "name": "mozart/loader",
+    "type": "library",
+    "description": "Mozart Class Loader",
+    "keywords": ["namespace", "class-loader", "loader"],
+    "homepage": "http://faizalpribadi.github/Loader",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Faizal Pribadi",
+            "email": "faizal_pribadi@aol.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "require-dev": {
+        "symfony/class-loader": "2.3.*@dev"
+    },
+    "autoload": {
+        "psr-0": { "Mozart\\Library\\Loader\\": "" }
+    },
+    "target-dir": "Mozart/Library/Loader",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.0-dev"
+        }
+    }
+}

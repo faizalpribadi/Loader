@@ -93,7 +93,7 @@ class ClassLoader
      */
     public function enableCache($enable = true)
     {
-        if (!function_exists('apc') && !extension_loaded('apc')) {
+        if (!function_exists('apc_cache_info') && !extension_loaded('apc')) {
             throw new \Exception(
                 sprintf('doest not find cache "%s" , fix this to clear', 'APC')
             );

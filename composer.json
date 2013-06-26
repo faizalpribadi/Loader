@@ -12,9 +12,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.10"
-    },
-    "require-dev": {
+        "php": ">=5.3.10",
         "symfony/class-loader": "2.3.*@dev"
     },
     "autoload": {

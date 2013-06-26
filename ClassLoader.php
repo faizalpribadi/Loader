@@ -87,9 +87,9 @@ class ClassLoader
      * Enable debugging cache and store key of cache
      * if lifetime of cache less than limited flush automatic
      *
-     * @param   bool       $enable
-     * @return  ApcCache
-     * @throws  \Exception
+     * @param  bool       $enable
+     * @return ApcCache
+     * @throws \Exception
      */
     public function enableCache($enable = true)
     {
@@ -116,10 +116,10 @@ class ClassLoader
     /**
      * Adding and save the storing cache parameters
      *
-     * @param   string  $id
-     * @param   null    $content
-     * @param   int     $lifeTime
-     * @return  bool
+     * @param  string $id
+     * @param  null   $content
+     * @param  int    $lifeTime
+     * @return bool
      */
     protected function addCache($id, $content = null, $lifeTime = 0)
     {

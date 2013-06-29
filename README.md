@@ -1,4 +1,5 @@
-# Mozart - Class Loader - Master [v0.1.0] : [![Build Status](https://travis-ci.org/FaizalPribadi/Loader.png?branch=master)](https://travis-ci.org/FaizalPribadi/Loader)
+# Mozart - Class Loader
+[![Latest Stable Version](https://poser.pugx.org/mozart/loader/v/stable.png)](https://packagist.org/packages/mozart/loader) - [![Build Status](https://travis-ci.org/FaizalPribadi/Loader.png?branch=master)](https://travis-ci.org/FaizalPribadi/Loader)
 
 Mozart Class Loader Extending API Core Component Of "ClassLoader" From Symfony2
 

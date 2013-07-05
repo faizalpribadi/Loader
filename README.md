@@ -19,7 +19,7 @@ $ git clone https://github.com/FaizalPribadi/Loader.git /path/to/your-vendor/Loa
 usage
 =====
 ```php
-
+<?php
 function findFile($file)
 {
     if (file_exists($file)) {

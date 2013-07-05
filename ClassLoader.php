@@ -11,6 +11,8 @@ namespace Mozart\Library\Loader;
  * file that was distributed with this source code.
  */
 
+use Mozart\Library\Cache\Cache;
+use Mozart\Library\Cache\Compressed\CacheFlags;
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 /**
@@ -27,9 +29,16 @@ class ClassLoader
     const REGISTER_CLASS = true;
 
     /**
+     * Default Cache
+     */
+    const DEFAULT_CACHE = 'my.cache';
+
+    /**
      * @var \Symfony\Component\ClassLoader\UniversalClassLoader
      */
     protected $loader;
+
+    protected $cache;
 
     /**
      * Constructor
@@ -84,77 +93,45 @@ class ClassLoader
     }
 
     /**
-     * Enable debugging cache and store key of cache
-     * if lifetime of cache less than limited flush automatic
+     * Set and enable cache driver
      *
-     * @param  bool       $enable
-     * @return ApcCache
+     * @param Cache $cache
+     */
+    public function setCache(Cache $cache)
+    {
+        $this->cache = $cache;
+    }
+
+    /**
+     * @return Cache
+     */
+    public function getCache()
+    {
+        return $this->cache;
+    }
+
+    /**
+     * Enable cache autoload script
+     *
+     * @param bool $prefend
+     *
+     * @return mixed
+     *
      * @throws \Exception
      */
-    public function enableCache($enable = true)
+    public function enableCache($prefend = true)
     {
-        if (!function_exists('apc_cache_info') && !extension_loaded('apc')) {
-            throw new \Exception(
-                sprintf('doest not find cache "%s" , fix this to clear', 'APC')
+        if ($prefend) {
+            $this->cache->set(
+                self::DEFAULT_CACHE,
+                sprintf('enable cache from class "%s"', 'Mozart\Library\Loader\ClassLoader'),
+                CacheFlags::CACHE_LIFETIME
             );
-        }
-
-        if ($enable) {
-            $this->addCache('class.cache',
-                sprintf('Enable class loader cache from "%s"', 'Mozart\\Library\\Loader\\ClassLoader'),
-                $lifeTime = 3600
-            );
-
-            if ($this->hasCache('class.cache') && $this->fetchCache('class.cache') > $lifeTime) {
-                return $this->flushCache();
+            if ($this->cache->get(self::DEFAULT_CACHE) > 3600 * 2 /2) {
+                return $this->cache->flush();
             }
         } else {
-            throw new \InvalidArgumentException('invalid argument to enable cache');
+            throw new \Exception('not enable cache for you are load class');
         }
-    }
-
-    /**
-     * Adding and save the storing cache parameters
-     *
-     * @param  string $id
-     * @param  null   $content
-     * @param  int    $lifeTime
-     * @return bool
-     */
-    protected function addCache($id, $content = null, $lifeTime = 0)
-    {
-        return (Boolean) apc_store($id, $content, $lifeTime);
-    }
-
-    /**
-     * Flushing cache if contains the key of cache exist
-     *
-     * @return bool
-     */
-    protected function flushCache()
-    {
-        return apc_clear_cache();
-    }
-
-    /**
-     * Fetch the id key of string cache parameter
-     *
-     * @param  string $id
-     * @return null
-     */
-    protected function fetchCache($id)
-    {
-        return apc_fetch($id) ? : null;
-    }
-
-    /**
-     * Has cache string id key
-     *
-     * @param  string         $id
-     * @return bool|\string[]
-     */
-    protected function hasCache($id)
-    {
-        return apc_exists($id);
     }
 }

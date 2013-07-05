@@ -13,7 +13,8 @@
     ],
     "require": {
         "php": ">=5.3.10",
-        "symfony/class-loader": "2.3.*@dev"
+        "symfony/class-loader": "2.3.*@dev",
+        "mozart/cache": "0.1.1.*@dev"
     },
     "autoload": {
         "psr-0": { "Mozart\\Library\\Loader\\": "" }

@@ -19,7 +19,7 @@ $ git clone https://github.com/FaizalPribadi/Loader.git /path/to/your-vendor/Loa
 usage
 =====
 ```php
-<?php
+
 function findFile($file)
 {
     if (file_exists($file)) {
@@ -29,32 +29,33 @@ function findFile($file)
     throw new \Exception(sprintf('The file "%s" not found', $file));
 }
 
-findFile(__DIR__ . '/path-to/Mozart/Library/Loader/ClassLoader.php');
-findFile(__DIR__ . '/path-to/Vendors/Symfony/Component/ClassLoader/UniversalClassLoader.php');
-
+findFile(__DIR__ . '/Framework/Mozart/Library/Loader/ClassLoader.php');
+findFile(__DIR__ . '/Vendors/Symfony/Component/ClassLoader/UniversalClassLoader.php');
 
 use Mozart\Library\Loader\ClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Mozart\Library\Cache\Driver\OpCache\Apc;
 
-$loader = new ClassLoader();
+$loader = ClassLoader::bootstrap();
 $loader->mapClass(array(
         'Mozart'        => __DIR__ . '/Framework',
         'Doctrine'      => __DIR__ . '/Vendors',
         'Symfony'       => __DIR__ . '/Vendors',
         'Psr'           => __DIR__ . '/Vendors',
         'Monolog'       => __DIR__ . '/Vendors',
-        'Zend'          => __DIR__ . '/Vendors',
-        'AnotherVendor' => __DIR__ . '/Vendors',
+        'Metadata'      => __DIR__ . '/Vendors/JMS/Metadata/src',
     ));
-
-$loader->enableCache(true);     // if you're enable cache with APC
 $loader->register();
+$loader->setCache(new \Mozart\Library\Cache\Cache(new Apc()));
+$loader->enableCache(true);
 
-// if you're parsing annotations with doctrine add this line into you're autoload script
+
 //TODO enable annotations parsing
-AnnotationRegistry::registerLoader(function($class) use($loader) {
+AnnotationRegistry::registerLoader(function($class) use ($loader) {
         $loader->findClassFile($class);
+
         return class_exists($class, true);
     });
-AnnotationRegistry::registerFile(__DIR__ . '/path-to/Vendors/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
+AnnotationRegistry::registerFile(__DIR__ . '/Vendors/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
+
 ```

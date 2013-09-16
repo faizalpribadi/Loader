@@ -127,7 +127,9 @@ class ClassLoader
                 sprintf('enable cache from class "%s"', 'Mozart\Library\Loader\ClassLoader'),
                 CacheFlags::CACHE_LIFETIME
             );
-            if ($this->cache->get(self::DEFAULT_CACHE) > 3600 * 2 /2) {
+            // if cache more than 24 hours
+            // remove it
+            if ($this->cache->get(self::DEFAULT_CACHE) > time() + (60 * 60 * 24)) {
                 return $this->cache->flush();
             }
         } else {
